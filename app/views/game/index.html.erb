@@ -18,19 +18,26 @@
             <p>(between 1 and 100)</p>
           </div>
           <div class="card-body">
-            <%= form_with url: guess_path, method: :post, local: true do |form| %>
-              <div class="form-group">
-                <%= form.number_field :guess, class: 'form-control', min: 1, max: 100, required: true %>
+            <% if @game_over %>
+              <p class="alert alert-success text-center"><%= @message %></p>
+              <div class="text-center">
+                <%= button_to 'Restart Game', reset_path, method: :post, class: 'btn btn-primary' %>
               </div>
-              <div class="form-group text-center mt-3">
-                <%= form.submit 'Submit', class: 'btn btn-primary' %>
+            <% else %>
+              <%= form_with url: guess_path, method: :post, local: true do |form| %>
+                <div class="form-group">
+                  <%= form.number_field :guess, class: 'form-control', min: 1, max: 100, required: true %>
+                </div>
+                <div class="form-group text-center mt-3">
+                  <%= form.submit 'Submit', class: 'btn btn-primary' %>
+                </div>
+              <% end %>
+              <div class="message text-center mt-3">
+                <% if @message %>
+                  <p class="alert <%= @guess == @secret_number ? 'alert-success' : 'alert-warning' %>"><%= @message %></p>
+                <% end %>
               </div>
             <% end %>
-            <div class="message text-center mt-3">
-              <% if @message %>
-                <p class="alert <%= @guess == @secret_number ? 'alert-success' : 'alert-warning' %>"><%= @message %></p>
-              <% end %>
-            </div>
             <p class="text-center mt-3">Number of attempts: <%= session[:attempts] %></p>
           </div>
         </div>

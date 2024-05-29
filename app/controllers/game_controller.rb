@@ -1,7 +1,7 @@
+# app/controllers/game_controller.rb
 class GameController < ApplicationController
   def index
-    session[:secret_number] = rand(1..100) if session[:secret_number].nil?
-    session[:attempts] = 0
+    reset_game if session[:secret_number].nil?
   end
 
   def guess
@@ -11,7 +11,7 @@ class GameController < ApplicationController
 
     if @guess == @secret_number
       @message = "Congratulations! You guessed the number in #{session[:attempts]} attempts."
-      session[:secret_number] = nil # Reset the game
+      @game_over = true
     elsif @guess < @secret_number
       @message = 'Too low!'
     else
@@ -19,5 +19,17 @@ class GameController < ApplicationController
     end
 
     render :index
+  end
+
+  def reset
+    reset_game
+    redirect_to root_path
+  end
+
+  private
+
+  def reset_game
+    session[:secret_number] = rand(1..100)
+    session[:attempts] = 0
   end
 end
