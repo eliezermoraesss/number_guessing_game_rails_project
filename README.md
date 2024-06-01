@@ -2,6 +2,9 @@
 
 Welcome to the Number Guessing Game! This is a simple web application built with Ruby on Rails where players try to guess a number between 1 and 100. The goal is to guess the number in the fewest attempts possible.
 
+[Confira o jogo e divirta-se!](https://mysite-sbuy.onrender.com/) 🕹️
+
+
 ## Table of Contents
 
 - [Number Guessing Game 🚀🕹️](#number-guessing-game-️)
